@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <title>Vai bugar o Torneio?</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      height: 100vh;
+      background: radial-gradient(circle at center, #f5faff, #e7ecf4, #fef6f9);
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    h1 {
+      font-size: 60px;
+      color: #3a76d4;
+      margin-bottom: 40px;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    button {
+      padding: 15px 30px;
+      font-size: 24px;
+      background-color: #4d94ff;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    button:hover {
+      background-color: #357ae8;
+    }
+
+    #resposta {
+      margin-top: 40px;
+      font-size: 48px;
+      font-weight: bold;
+      transition: transform 0.3s ease;
+    }
+
+    #resposta.animar {
+      transform: scale(1.3);
+    }
+
+    #contador {
+      margin-top: 20px;
+      font-size: 20px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <h1>Vai bugar o Torneio?</h1>
+  <button onclick="gerarResposta()">Rodar o destino</button>
+  <div id="resposta"></div>
+  <div id="contador">
+    Sims (bugou): <span id="contSim">0</span> | Nãos (tudo certo): <span id="contNao">0</span>
+  </div>
+
+  <!-- Áudios -->
+  <audio id="somNao" src="nao.mp3" preload="auto"></audio>
+  <audio id="somSim" src="sim.mp3" preload="auto"></audio>
+
+  <!-- Confetti library -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <script>
+    let contNao = 0;
+    let contSim = 0;
+
+    function gerarResposta() {
+      const chance = Math.random();
+      const resposta = chance < 0.5 ? "sim" : "não"; // 50% sim, 50% não
+      const respostaDiv = document.getElementById("resposta");
+      const somNao = document.getElementById("somNao");
+      const somSim = document.getElementById("somSim");
+
+      respostaDiv.textContent = resposta;
+      respostaDiv.classList.add("animar");
+
+      setTimeout(() => {
+        respostaDiv.classList.remove("animar");
+      }, 300);
+
+      if (resposta === "não") {
+        contNao++;
+        somNao.play();
+        confettiExplosion(); // 🎉 celebrar que NÃO bugou
+      } else {
+        contSim++;
+        somSim.play();
+      }
+
+      document.getElementById("contNao").textContent = contNao;
+      document.getElementById("contSim").textContent = contSim;
+    }
+
+    function confettiExplosion() {
+      confetti({
+        particleCount: 150,
+        spread: 100,
+        origin: { y: 0.6 },
+        zIndex: 1000
+      });
+    }
+  </script>
+</body>
+</html>
