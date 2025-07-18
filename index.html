@@ -23,7 +23,7 @@
       text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
     }
 
-    .botoes {
+    .botoes-centrais {
       display: flex;
       gap: 20px;
     }
@@ -60,13 +60,35 @@
       font-size: 20px;
       color: #555;
     }
+
+    /* Botão flutuante no canto superior esquerdo */
+    .botao-flutuante {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 999;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #777;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 2px 2px 8px rgba(0,0,0,0.2);
+      transition: background-color 0.3s;
+    }
+
+    .botao-flutuante:hover {
+      background-color: #555;
+    }
   </style>
 </head>
 <body>
+  <button class="botao-flutuante" onclick="window.open('https://mizanyan.github.io/mikaejnator/', '_blank')">Ir para Mikaejnator</button>
+
   <h1>Vai bugar o Torneio?</h1>
-  <div class="botoes">
+  <div class="botoes-centrais">
     <button onclick="gerarResposta()">Rodar o destino</button>
-    <button onclick="window.open('https://mizanyan.github.io/mikaejnator/', '_blank')">Ir para Mikaejnator</button>
   </div>
   <div id="resposta"></div>
   <div id="contador">
