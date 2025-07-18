@@ -23,6 +23,11 @@
       text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
     }
 
+    .botoes {
+      display: flex;
+      gap: 20px;
+    }
+
     button {
       padding: 15px 30px;
       font-size: 24px;
@@ -59,7 +64,10 @@
 </head>
 <body>
   <h1>Vai bugar o Torneio?</h1>
-  <button onclick="gerarResposta()">Rodar o destino</button>
+  <div class="botoes">
+    <button onclick="gerarResposta()">Rodar o destino</button>
+    <button onclick="window.open('https://mizanyan.github.io/mikaejnator/', '_blank')">Ir para Mikaejnator</button>
+  </div>
   <div id="resposta"></div>
   <div id="contador">
     Sims (bugou): <span id="contSim">0</span> | Nãos (tudo certo): <span id="contNao">0</span>
@@ -78,7 +86,7 @@
 
     function gerarResposta() {
       const chance = Math.random();
-      const resposta = chance < 0.5 ? "sim" : "não"; // 50% sim, 50% não
+      const resposta = chance < 0.5 ? "sim" : "não";
       const respostaDiv = document.getElementById("resposta");
       const somNao = document.getElementById("somNao");
       const somSim = document.getElementById("somSim");
@@ -93,7 +101,7 @@
       if (resposta === "não") {
         contNao++;
         somNao.play();
-        confettiExplosion(); // 🎉 celebrar que NÃO bugou
+        confettiExplosion();
       } else {
         contSim++;
         somSim.play();
