@@ -55,13 +55,26 @@
       transform: scale(1.3);
     }
 
+    #mensagemExtra {
+      margin-top: 10px;
+      font-size: 18px;
+      color: #c0392b;
+      opacity: 0;
+      transition: opacity 0.5s;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    #mensagemExtra.visivel {
+      opacity: 1;
+    }
+
     #contador {
       margin-top: 20px;
       font-size: 20px;
       color: #555;
     }
 
-    /* Botão flutuante no canto superior esquerdo */
     .botao-flutuante {
       position: fixed;
       top: 20px;
@@ -92,6 +105,7 @@
     <button onclick="gerarResposta()">Enviar Update</button>
   </div>
   <div id="resposta"></div>
+  <div id="mensagemExtra"></div>
   <div id="contador">
     Sims (bugou): <span id="contSim">0</span> | Nãos (tudo certo): <span id="contNao">0</span>
   </div>
@@ -111,11 +125,14 @@
       const chance = Math.random();
       const resposta = chance < 0.5 ? "sim" : "não";
       const respostaDiv = document.getElementById("resposta");
+      const mensagemExtra = document.getElementById("mensagemExtra");
       const somNao = document.getElementById("somNao");
       const somSim = document.getElementById("somSim");
 
       respostaDiv.textContent = resposta;
       respostaDiv.classList.add("animar");
+      mensagemExtra.classList.remove("visivel");
+      mensagemExtra.textContent = "";
 
       setTimeout(() => {
         respostaDiv.classList.remove("animar");
@@ -128,6 +145,15 @@
       } else {
         contSim++;
         somSim.play();
+
+        // 5% de chance de mostrar mensagem especial
+        if (Math.random() < 0.05) {
+          mensagemExtra.textContent = "Acontece Guys, na próxima vamos tomar mais cuidado na hora dos testes e prestar mais atenção 💪";
+          mensagemExtra.classList.add("visivel");
+          setTimeout(() => {
+            mensagemExtra.classList.remove("visivel");
+          }, 7000);
+        }
       }
 
       document.getElementById("contNao").textContent = contNao;
